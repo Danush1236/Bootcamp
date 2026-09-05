@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Home from "@/components/home/Home";
-import ChatWidget from "@/components/chatbot/ChatWidget";
+import ChatWidget from "@/components/Chatbot/ChatWidget";
 
 export default function Page() {
   const [isChatOpen, setIsChatOpen] = useState(false);

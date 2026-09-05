@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "crawl:dmt": "node scripts/crawl-dmt.mjs",
+    "smoke:chat": "node scripts/smoke-chat.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.33.0",

@@ -18,35 +18,31 @@ import "./ChatWidget.css";
 const DMT_SUGGESTIONS = [
   {
     question: "How do I renew my driving licence?",
-    answer:
-      "To renew your Sri Lankan driving licence, visit the DMT Werahera or a district office. Bring your current licence, National Identity Card (NIC), and a Medical Fitness Certificate obtained from the National Transport Medical Institute (NTMI).",
   },
   {
     question: "What documents do I need to transfer ownership?",
-    answer:
-      "For vehicle ownership transfer, you need: MTA 6 Form (Application for Transfer), Vehicle Registration Certificate (VRC), Revenue Licence, NIC copies of seller & buyer, Certificate of Identification, and transfer fees.",
   },
   {
     question: "I lost my driving licence. What should I do?",
-    answer:
-      "If you lost your licence: First, lodge a complaint at the nearest Police Station and get a Police Report. Then visit a DMT office with your NIC, Police Report, and NTMI Medical Certificate to apply for a duplicate.",
   },
 ];
 
 const ChatWidget = ({ isOpen, onOpen, onClose }) => {
   const [messages, setMessages] = useState([
-    {
-      id: 1,
-      text: "Welcome to the Department of Motor Traffic (Sri Lanka) Assistant! How can I help you today?",
-      sender: "bot",
-      time: "Just now",
-    },
+      {
+        id: 1,
+        text: "Welcome to the Department of Motor Traffic (Sri Lanka) Assistant. Ask me about DMT appointments, driving licences, vehicle registration, ownership transfers, forms, or contact details.",
+        sender: "bot",
+        time: "Just now",
+      },
   ]);
 
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const messagesEndRef = useRef(null);
+  const messageIdRef = useRef(2);
 
   // Typing badge animation
   const [displayText, setDisplayText] = useState("");
@@ -93,10 +89,10 @@ const ChatWidget = ({ isOpen, onOpen, onClose }) => {
   }, [messages, isTyping, isOpen]);
 
   // Send message
-  const handleSendMessage = (customQuestion, customAnswer) => {
+  const handleSendMessage = async (customQuestion) => {
     const questionText = customQuestion || inputValue;
 
-    if (!questionText.trim()) return;
+    if (!questionText.trim() || isTyping) return;
 
     const timeStr = new Date().toLocaleTimeString([], {
       hour: "2-digit",
@@ -104,7 +100,7 @@ const ChatWidget = ({ isOpen, onOpen, onClose }) => {
     });
 
     const userMsg = {
-      id: Date.now(),
+      id: messageIdRef.current++,
       text: questionText,
       sender: "user",
       time: timeStr,
@@ -112,34 +108,73 @@ const ChatWidget = ({ isOpen, onOpen, onClose }) => {
 
     setMessages((prev) => [...prev, userMsg]);
     setInputValue("");
+    setErrorMessage("");
     setIsTyping(true);
 
-    setTimeout(() => {
-      setIsTyping(false);
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: questionText,
+          history: messages.slice(-6).map((message) => ({
+            sender: message.sender,
+            text: message.text,
+          })),
+        }),
+      });
 
-      const answerText =
-        customAnswer ||
-        `Thank you for your inquiry regarding "${questionText}". For official service bookings or further verification, please visit dmt.gov.lk or call 1920.`;
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "The assistant could not respond.");
+      }
 
       const botMsg = {
-        id: Date.now() + 1,
-        text: answerText,
+        id: messageIdRef.current++,
+        text: data.answer,
         sender: "bot",
         time: new Date().toLocaleTimeString([], {
           hour: "2-digit",
           minute: "2-digit",
         }),
+        sources: data.sources || [],
+        suggestions: data.suggestions || [],
       };
 
       setMessages((prev) => [...prev, botMsg]);
-    }, 900);
+    } catch (error) {
+      const fallbackText =
+        error instanceof Error
+          ? error.message
+          : "The assistant could not respond.";
+
+      setErrorMessage(fallbackText);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: messageIdRef.current++,
+          text:
+            "Sorry, I could not reach the DMT assistant service right now. Please try again in a moment.",
+          sender: "bot",
+          time: new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+        },
+      ]);
+    } finally {
+      setIsTyping(false);
+    }
   };
 
   // Reset chat
   const handleReset = () => {
     setMessages([
       {
-        id: Date.now(),
+        id: messageIdRef.current++,
         text: "Chat reset. Please select a service or type a question for the Department of Motor Traffic.",
         sender: "bot",
         time: "Just now",
@@ -147,6 +182,7 @@ const ChatWidget = ({ isOpen, onOpen, onClose }) => {
     ]);
 
     setInputValue("");
+    setErrorMessage("");
     setIsTyping(false);
   };
 
@@ -231,6 +267,37 @@ const ChatWidget = ({ isOpen, onOpen, onClose }) => {
                     <p>{msg.text}</p>
                   </div>
 
+                  {msg.sources?.length > 0 && (
+                    <div className="message-sources">
+                      <span>Official sources</span>
+                      {msg.sources.map((source) => (
+                        <a
+                          key={source.url}
+                          href={source.url}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {source.title}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+
+                  {msg.suggestions?.length > 0 && (
+                    <div className="message-followups">
+                      {msg.suggestions.slice(0, 3).map((suggestion) => (
+                        <button
+                          type="button"
+                          key={suggestion}
+                          onClick={() => handleSendMessage(suggestion)}
+                          disabled={isTyping}
+                        >
+                          {suggestion}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
                   <span className="message-time">
                     {msg.time}
                   </span>
@@ -269,12 +336,8 @@ const ChatWidget = ({ isOpen, onOpen, onClose }) => {
                       type="button"
                       key={i}
                       className="chip-btn"
-                      onClick={() =>
-                        handleSendMessage(
-                          item.question,
-                          item.answer
-                        )
-                      }
+                      onClick={() => handleSendMessage(item.question)}
+                      disabled={isTyping}
                     >
                       <span>{item.question}</span>
 
@@ -301,6 +364,7 @@ const ChatWidget = ({ isOpen, onOpen, onClose }) => {
               placeholder="Ask about licences, transfers, registration..."
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
+              disabled={isTyping}
             />
 
             <button
@@ -308,12 +372,18 @@ const ChatWidget = ({ isOpen, onOpen, onClose }) => {
               className={`send-btn ${
                 inputValue.trim() ? "active" : ""
               }`}
-              disabled={!inputValue.trim()}
+              disabled={!inputValue.trim() || isTyping}
               aria-label="Send message"
             >
               <Send size={16} />
             </button>
           </form>
+
+          {errorMessage && (
+            <div className="chat-error" role="status">
+              {errorMessage}
+            </div>
+          )}
         </div>
       )}
     </div>

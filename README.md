@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DMT Assist
+
+A Next.js chatbot assistant for Department of Motor Traffic Sri Lanka services. The assistant uses retrieval-grounded answers from official public DMT pages and shows source links for user verification.
+
+## Features
+
+- Existing landing page and chat widget UI preserved.
+- `POST /api/chat` backend for real chatbot answers.
+- Curated DMT seed knowledge plus refreshable generated crawl index.
+- DMT-only guardrails, greeting handling, contextual follow-ups, and basic rate limiting.
+- Sinhala/Tamil/English language detection.
+- Optional server-side OpenAI Responses API synthesis with deterministic fallback.
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Production Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run build
+npm run start
+```
 
-## Learn More
+With the app running, verify the chatbot API:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run smoke:chat
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Refresh DMT Knowledge
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run crawl:dmt
+```
 
-## Deploy on Vercel
+The crawler refreshes `lib/dmt/data/generated-knowledge.ts` from configured official DMT sources.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Environment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Copy `.env.example` if you want LLM synthesis:
+
+```env
+OPENAI_API_KEY=
+OPENAI_MODEL=gpt-5
+```
+
+Without `OPENAI_API_KEY`, the chatbot still works using local retrieval and extractive answers.
+
+## Project Structure
+
+- `app/api/chat/route.ts` - HTTP route handler.
+- `lib/dmt/services/chat-service.ts` - chat orchestration.
+- `lib/dmt/services/retriever.ts` - retrieval scoring.
+- `lib/dmt/services/answer.ts` - grounded answer composition.
+- `lib/dmt/data/knowledge.ts` - curated seed knowledge.
+- `lib/dmt/data/generated-knowledge.ts` - generated crawl index.
+- `scripts/crawl-dmt.mjs` - DMT website crawler.
+- `scripts/smoke-chat.mjs` - API smoke tests for a running local app.
+- `docs/RAG_ARCHITECTURE.md` - architecture and operations notes.
