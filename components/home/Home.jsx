@@ -27,26 +27,27 @@ import {
   Landmark,
   AlertTriangle,
   ArrowRight,
+  Sparkles,
 } from "lucide-react";
 import "./Home.css";
 
 export default function DMTAssist({ onOpenChat }) {
   return (
     <div className="dmt">
-      {/* NAVBAR */}
+      {/* NAVIGATION */}
       <header className="dmt-nav">
         <div className="dmt-nav-inner">
           <a className="dmt-logo" href="#top">
             <span className="dmt-logo-mark">
-              <TrafficCone size={22} strokeWidth={2} />
+              <TrafficCone size={22} strokeWidth={2.2} />
             </span>
             <span className="dmt-logo-text">
               DMT Assist
-              <span className="dmt-logo-sub">Information &amp; guidance concept</span>
+              <span className="dmt-logo-sub">Information &amp; Guidance Concept</span>
             </span>
           </a>
 
-          <nav className="dmt-nav-links">
+          <nav className="dmt-nav-links" aria-label="Main Navigation">
             <a href="#services">Services</a>
             <a href="#how-it-works">How It Works</a>
             <a href="#questions">Popular Questions</a>
@@ -56,35 +57,38 @@ export default function DMTAssist({ onOpenChat }) {
           <div className="dmt-nav-actions">
             <div className="dmt-lang">
               <button className="dmt-lang-btn" type="button">සිංහල</button>
-              <span className="dmt-lang-divider">|</span>
+              <span className="dmt-lang-divider">/</span>
               <button className="dmt-lang-btn" type="button">தமிழ்</button>
-              <span className="dmt-lang-divider">|</span>
+              <span className="dmt-lang-divider">/</span>
               <button className="dmt-lang-btn dmt-lang-active" type="button">English</button>
             </div>
-            <a
-              href="#assistant"
+            <button
+              type="button"
               className="dmt-btn dmt-btn-primary dmt-btn-nav"
               onClick={onOpenChat}
             >
+              <Sparkles size={16} />
               Ask DMT Assistant
-            </a>
+            </button>
           </div>
         </div>
       </header>
 
       <main id="top">
-        {/* HERO */}
+        {/* HERO SECTION */}
         <section className="dmt-hero">
           <div className="dmt-hero-inner">
             <div className="dmt-hero-copy">
-              <p className="dmt-eyebrow">Department of Motor Traffic · Sri Lanka</p>
+              <div className="dmt-badge">
+                <span className="dmt-badge-dot"></span>
+                Department of Motor Traffic · Sri Lanka
+              </div>
               <h1>
                 Not Sure What to Do at <span>DMT</span>? Just Ask.
               </h1>
               <p className="dmt-hero-sub">
                 Get clear, step-by-step guidance for driving licences, vehicle
-                registration, ownership transfers, documents and more — all in
-                one place.
+                registration, ownership transfers, documents, and more — all in one place.
               </p>
 
               <div className="dmt-hero-search">
@@ -92,13 +96,15 @@ export default function DMTAssist({ onOpenChat }) {
                   What do you need help with?
                 </label>
                 <div className="dmt-hero-search-box">
-                  <Search className="dmt-icon" size={18} aria-hidden="true" />
+                  <Search className="dmt-search-icon" size={18} aria-hidden="true" />
                   <input
                     id="dmt-search"
                     type="text"
                     placeholder="Ask anything about DMT..."
                     readOnly
+                    onClick={onOpenChat}
                   />
+                  <kbd className="dmt-kbd">⌘K</kbd>
                 </div>
                 <div className="dmt-hero-examples">
                   <span>“How do I renew my driving licence?”</span>
@@ -108,24 +114,42 @@ export default function DMTAssist({ onOpenChat }) {
               </div>
 
               <div className="dmt-hero-cta">
-                <a
-                  href="#assistant"
+                <button
+                  type="button"
                   className="dmt-btn dmt-btn-primary"
                   onClick={onOpenChat}
                 >
+                  <MessageCircle size={18} />
                   Ask DMT Assistant
-                </a>
+                </button>
                 <a href="#services" className="dmt-btn dmt-btn-secondary">
                   Explore Services
                 </a>
               </div>
             </div>
 
-            
+            {/* HERO VISUAL / PREVIEW CARD */}
+            <div className="dmt-hero-visual">
+              <div className="dmt-hero-card-preview">
+                <div className="dmt-hero-chip-head">
+                  <Bot className="dmt-icon" size={20} />
+                  <span>Instant DMT Guidance</span>
+                </div>
+                <p className="dmt-hero-chip-q">“What do I need for vehicle transfer?”</p>
+                <div className="dmt-hero-chip-a">
+                  <p><strong>Required Documents:</strong></p>
+                  <ul>
+                    <li>MTA 6 Application Form</li>
+                    <li>Original Registration Certificate</li>
+                    <li>NIC / Passport copies of both parties</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* PROBLEM */}
+        {/* THE PROBLEM SECTION */}
         <section className="dmt-section dmt-problem">
           <div className="dmt-section-inner">
             <p className="dmt-eyebrow dmt-eyebrow-center">The Problem</p>
@@ -133,42 +157,51 @@ export default function DMTAssist({ onOpenChat }) {
               Getting Help Shouldn&apos;t Be This Complicated
             </h2>
             <p className="dmt-section-sub">
-              Finding the right information about motor-traffic services can
-              be difficult. People often have to search through different
-              pages, watch videos, call offices or ask others before they
-              know what to do.
+              Finding the right information about motor-traffic services can be difficult. 
+              People often search multiple websites, watch videos, or make long phone calls before knowing what to do.
             </p>
 
             <div className="dmt-grid dmt-grid-4">
               <div className="dmt-card">
-                <Search className="dmt-icon dmt-card-icon" size={26} aria-hidden="true" />
+                <div className="dmt-card-icon-wrapper">
+                  <Search size={22} />
+                </div>
                 <h3>Too Much Searching</h3>
-                <p className="dmt-card-q">Where do I find the right information?</p>
-                <p>Information can be spread across different pages and services.</p>
+                <p className="dmt-card-q">Where do I find official info?</p>
+                <p>Information is scattered across different sites and outdated portals.</p>
               </div>
+
               <div className="dmt-card">
-                <Compass className="dmt-icon dmt-card-icon" size={26} aria-hidden="true" />
+                <div className="dmt-card-icon-wrapper">
+                  <Compass size={22} />
+                </div>
                 <h3>Unclear Processes</h3>
                 <p className="dmt-card-q">What do I need to do first?</p>
-                <p>People may know what they want but not know the correct process.</p>
+                <p>Knowing your goal is easy, but finding the exact steps is frustrating.</p>
               </div>
+
               <div className="dmt-card">
-                <FileText className="dmt-icon dmt-card-icon" size={26} aria-hidden="true" />
+                <div className="dmt-card-icon-wrapper">
+                  <FileText size={22} />
+                </div>
                 <h3>Document Confusion</h3>
-                <p className="dmt-card-q">Which documents do I need?</p>
-                <p>Users often don&apos;t know what documents or forms are required.</p>
+                <p className="dmt-card-q">Which documents do I bring?</p>
+                <p>Missing a single form can result in wasted days and trips back home.</p>
               </div>
+
               <div className="dmt-card">
-                <Phone className="dmt-icon dmt-card-icon" size={26} aria-hidden="true" />
+                <div className="dmt-card-icon-wrapper">
+                  <Phone size={22} />
+                </div>
                 <h3>Calling for Answers</h3>
                 <p className="dmt-card-q">Who should I ask?</p>
-                <p>Simple questions can turn into phone calls, visits or asking someone else.</p>
+                <p>Simple questions lead to endless calls, long hold times, or guesswork.</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* SCENARIO */}
+        {/* SCENARIO COMPARISON */}
         <section className="dmt-section dmt-scenario">
           <div className="dmt-section-inner">
             <p className="dmt-eyebrow dmt-eyebrow-center">A Familiar Story</p>
@@ -179,13 +212,13 @@ export default function DMTAssist({ onOpenChat }) {
 
             <div className="dmt-scenario-compare">
               <div className="dmt-scenario-col dmt-scenario-before">
-                <h3>The Old Way</h3>
+                <h3>The Traditional Way</h3>
                 <ol className="dmt-flow">
-                  <li>Search Google</li>
-                  <li>Watch YouTube</li>
-                  <li>Ask a friend</li>
-                  <li>Call DMT</li>
-                  <li className="dmt-flow-end">Still not sure</li>
+                  <li>Search Google for random forum guides</li>
+                  <li>Watch multi-part YouTube videos</li>
+                  <li>Ask friends for conflicting advice</li>
+                  <li>Call DMT offices and wait on hold</li>
+                  <li className="dmt-flow-end">Still unsure if you have the right forms</li>
                 </ol>
               </div>
 
@@ -197,10 +230,10 @@ export default function DMTAssist({ onOpenChat }) {
                 <h3>With DMT Assistant</h3>
                 <ol className="dmt-flow">
                   <li>Ask: “I want to transfer ownership of my car. What do I need?”</li>
-                  <li>Get a clear answer</li>
-                  <li>See required documents</li>
-                  <li>Know where to go</li>
-                  <li className="dmt-flow-end">Know what to do next</li>
+                  <li>Get an instant, structured breakdown</li>
+                  <li>Download the exact MTA forms required</li>
+                  <li>Know which regional office to visit</li>
+                  <li className="dmt-flow-end">Complete your task with total clarity</li>
                 </ol>
               </div>
             </div>
@@ -216,46 +249,53 @@ export default function DMTAssist({ onOpenChat }) {
                 Meet Your DMT Assistant
               </h2>
               <p>
-                A simple digital assistant that helps you understand
-                Department of Motor Traffic services and guides you through
-                what to do next.
+                A smart digital assistant built to simplify Department of Motor Traffic 
+                services, answer your specific questions, and navigate you through every process.
               </p>
-              <p className="dmt-assistant-note">
-                <Lightbulb className="dmt-icon" size={18} aria-hidden="true" />
-                This preview shows how a conversation looks — it&apos;s a
-                static illustration, not a live chat.
-              </p>
+              <div className="dmt-assistant-note">
+                <Lightbulb size={18} className="dmt-note-icon" />
+                <span>
+                  <strong>Interactive Preview:</strong> Click any prompt to launch a full live consultation with the assistant.
+                </span>
+              </div>
             </div>
 
             <div className="dmt-chat-mock" role="img" aria-label="Preview of a DMT Assistant conversation">
               <div className="dmt-chat-head">
-                <Bot className="dmt-icon" size={18} aria-hidden="true" />
-                <span>DMT Assistant</span>
+                <div className="dmt-chat-head-user">
+                  <div className="dmt-chat-avatar">
+                    <Bot size={18} />
+                  </div>
+                  <div className="dmt-chat-title">
+                    <span>DMT Assistant</span>
+                    <span className="dmt-chat-status">Online · Official Info Mode</span>
+                  </div>
+                </div>
               </div>
+
               <div className="dmt-chat-body">
                 <div className="dmt-chat-bubble dmt-chat-bot">
-                  Hello! How can I help you today?
+                  Hello! How can I help you with DMT services today?
                 </div>
                 <div className="dmt-chat-bubble dmt-chat-user">
-                  <User className="dmt-icon" size={14} aria-hidden="true" /> I lost my driving licence.
+                  <User size={14} aria-hidden="true" /> I lost my driving licence. What should I do?
                 </div>
                 <div className="dmt-chat-bubble dmt-chat-bot">
-                  Don&apos;t worry. I can guide you through the process.
-                  <br />
-                  Here&apos;s what you may need:
+                  Don&apos;t worry! Here is what you need to obtain a duplicate licence:
                   <ol>
-                    <li>Complete the required form</li>
-                    <li>Prepare required documents</li>
-                    <li>Visit the relevant office</li>
+                    <li>Obtain a Police Report from your local station.</li>
+                    <li>Get a Medical Certificate from National Transport Medical Institute (NTMI).</li>
+                    <li>Visit the DMT office in Werahera or your District Office.</li>
                   </ol>
-                  <span className="dmt-chat-link">
-                    View detailed steps <ArrowRight size={14} />
+                  <span className="dmt-chat-link" onClick={onOpenChat}>
+                    View detailed procedure <ArrowRight size={14} />
                   </span>
                 </div>
               </div>
-              <div className="dmt-chat-input">
-                <span>Ask another question...</span>
-                <Send className="dmt-icon" size={16} aria-hidden="true" />
+
+              <div className="dmt-chat-input" onClick={onOpenChat}>
+                <span>Type your question...</span>
+                <Send className="dmt-send-icon" size={16} />
               </div>
             </div>
           </div>
@@ -270,28 +310,39 @@ export default function DMTAssist({ onOpenChat }) {
             <div className="dmt-grid dmt-grid-4">
               <div className="dmt-step">
                 <span className="dmt-step-num">01</span>
-                <MessageCircle className="dmt-icon dmt-step-icon" size={26} aria-hidden="true" />
+                <div className="dmt-step-icon">
+                  <MessageCircle size={24} />
+                </div>
                 <h3>Ask</h3>
-                <p>Tell the assistant what you need in your own words.</p>
-                <p className="dmt-step-example">“I want to renew my licence.”</p>
+                <p>Describe your issue in plain language.</p>
+                <p className="dmt-step-example">“I want to renew my driving licence.”</p>
               </div>
+
               <div className="dmt-step">
                 <span className="dmt-step-num">02</span>
-                <Brain className="dmt-icon dmt-step-icon" size={26} aria-hidden="true" />
-                <h3>Understand</h3>
-                <p>The assistant identifies the relevant DMT service for your question.</p>
+                <div className="dmt-step-icon">
+                  <Brain size={24} />
+                </div>
+                <h3>Analyze</h3>
+                <p>The AI matches your question with up-to-date DMT regulations.</p>
               </div>
+
               <div className="dmt-step">
                 <span className="dmt-step-num">03</span>
-                <FolderOpen className="dmt-icon dmt-step-icon" size={26} aria-hidden="true" />
+                <div className="dmt-step-icon">
+                  <FolderOpen size={24} />
+                </div>
                 <h3>Guide</h3>
-                <p>Get required documents, steps and relevant office information.</p>
+                <p>Receive step-by-step guidance and exact document checklists.</p>
               </div>
+
               <div className="dmt-step">
                 <span className="dmt-step-num">04</span>
-                <CheckCircle2 className="dmt-icon dmt-step-icon" size={26} aria-hidden="true" />
-                <h3>Take Action</h3>
-                <p>Follow the instructions or go directly to the official service.</p>
+                <div className="dmt-step-icon">
+                  <CheckCircle2 size={24} />
+                </div>
+                <h3>Action</h3>
+                <p>Visit the office prepared and complete your service seamlessly.</p>
               </div>
             </div>
           </div>
@@ -304,35 +355,52 @@ export default function DMTAssist({ onOpenChat }) {
             <h2 className="dmt-section-title">What Can You Ask?</h2>
 
             <div className="dmt-grid dmt-grid-3">
-              <div className="dmt-qcard">
-                <Car className="dmt-icon" size={24} aria-hidden="true" />
+              <div className="dmt-qcard" onClick={onOpenChat}>
+                <div className="dmt-qcard-icon">
+                  <Car size={22} />
+                </div>
                 <h3>Vehicle Registration</h3>
-                <p>How do I register a vehicle?</p>
+                <p>How do I register a newly imported or pre-owned vehicle?</p>
               </div>
-              <div className="dmt-qcard">
-                <ArrowLeftRight className="dmt-icon" size={24} aria-hidden="true" />
+
+              <div className="dmt-qcard" onClick={onOpenChat}>
+                <div className="dmt-qcard-icon">
+                  <ArrowLeftRight size={22} />
+                </div>
                 <h3>Ownership Transfer</h3>
-                <p>What documents do I need to transfer ownership?</p>
+                <p>What forms and signatures are required for normal vs. absolute transfers?</p>
               </div>
-              <div className="dmt-qcard">
-                <IdCard className="dmt-icon" size={24} aria-hidden="true" />
+
+              <div className="dmt-qcard" onClick={onOpenChat}>
+                <div className="dmt-qcard-icon">
+                  <IdCard size={22} />
+                </div>
                 <h3>Driving Licence</h3>
-                <p>How do I apply for a driving licence?</p>
+                <p>How do I apply for a new driving licence or heavy vehicle permit?</p>
               </div>
-              <div className="dmt-qcard">
-                <RefreshCw className="dmt-icon" size={24} aria-hidden="true" />
+
+              <div className="dmt-qcard" onClick={onOpenChat}>
+                <div className="dmt-qcard-icon">
+                  <RefreshCw size={22} />
+                </div>
                 <h3>Licence Renewal</h3>
-                <p>How can I renew my driving licence?</p>
+                <p>How do I renew an expired driving licence or convert an foreign licence?</p>
               </div>
-              <div className="dmt-qcard">
-                <FileText className="dmt-icon" size={24} aria-hidden="true" />
+
+              <div className="dmt-qcard" onClick={onOpenChat}>
+                <div className="dmt-qcard-icon">
+                  <FileText size={22} />
+                </div>
                 <h3>Documents &amp; Forms</h3>
-                <p>Which form do I need?</p>
+                <p>Where can I download official MTA application forms directly?</p>
               </div>
-              <div className="dmt-qcard">
-                <Search className="dmt-icon" size={24} aria-hidden="true" />
+
+              <div className="dmt-qcard" onClick={onOpenChat}>
+                <div className="dmt-qcard-icon">
+                  <Search size={22} />
+                </div>
                 <h3>Vehicle Information</h3>
-                <p>How can I check vehicle information?</p>
+                <p>How can I verify vehicle ownership details and revenue licence status?</p>
               </div>
             </div>
           </div>
@@ -342,22 +410,16 @@ export default function DMTAssist({ onOpenChat }) {
         <section className="dmt-section dmt-cta-big">
           <div className="dmt-section-inner dmt-cta-big-inner">
             <h2>Have a Question About DMT?</h2>
-            <p>Don&apos;t search through pages. Just ask.</p>
-
-            <div className="dmt-hero-search dmt-cta-search">
-              <div className="dmt-hero-search-box">
-                <MessageCircle className="dmt-icon" size={18} aria-hidden="true" />
-                <input type="text" placeholder="Type your question..." readOnly />
-              </div>
-            </div>
+            <p>Skip the guesswork and search engines. Get an instant answer now.</p>
 
             <button
-  type="button"
-  onClick={onOpenChat}
-  className="dmt-btn dmt-btn-gold"
->
-  Ask DMT Assistant <ArrowRight size={16} />
-</button>
+              type="button"
+              onClick={onOpenChat}
+              className="dmt-btn dmt-btn-primary dmt-btn-lg"
+            >
+              Ask DMT Assistant <ArrowRight size={18} />
+            </button>
+
             <p className="dmt-cta-lang">Available in සිංහල · தமிழ் · English</p>
           </div>
         </section>
@@ -366,44 +428,61 @@ export default function DMTAssist({ onOpenChat }) {
         <section className="dmt-section dmt-benefits">
           <div className="dmt-section-inner">
             <p className="dmt-eyebrow dmt-eyebrow-center">Benefits</p>
-            <h2 className="dmt-section-title">Make Every DMT Task Easier</h2>
+            <h2 className="dmt-section-title">Make Every DMT Task Effortless</h2>
 
             <div className="dmt-grid dmt-grid-3">
               <div className="dmt-benefit">
-                <Compass className="dmt-icon" size={30} aria-hidden="true" />
+                <div className="dmt-benefit-icon">
+                  <Compass size={24} />
+                </div>
                 <h3>Clear Guidance</h3>
-                <p>Know what to do, step by step.</p>
+                <p>Get simple, logical steps tailored to your specific situation.</p>
               </div>
+
               <div className="dmt-benefit">
-                <ClipboardList className="dmt-icon" size={30} aria-hidden="true" />
-                <h3>Know What to Prepare</h3>
-                <p>Understand the documents and requirements before you visit.</p>
+                <div className="dmt-benefit-icon">
+                  <ClipboardList size={24} />
+                </div>
+                <h3>Complete Preparation</h3>
+                <p>Know all document and fee requirements before you leave home.</p>
               </div>
+
               <div className="dmt-benefit">
-                <Clock className="dmt-icon" size={30} aria-hidden="true" />
-                <h3>Save Time</h3>
-                <p>Find answers without searching through multiple pages.</p>
+                <div className="dmt-benefit-icon">
+                  <Clock size={24} />
+                </div>
+                <h3>Save Valuable Hours</h3>
+                <p>Avoid multiple trips by doing things right the very first time.</p>
               </div>
+
               <div className="dmt-benefit">
-                <Globe className="dmt-icon" size={30} aria-hidden="true" />
-                <h3>Your Language</h3>
-                <p>Ask questions in Sinhala, Tamil or English.</p>
+                <div className="dmt-benefit-icon">
+                  <Globe size={24} />
+                </div>
+                <h3>Trilingual Support</h3>
+                <p>Ask and read answers comfortably in Sinhala, Tamil, or English.</p>
               </div>
+
               <div className="dmt-benefit">
-                <Smartphone className="dmt-icon" size={30} aria-hidden="true" />
-                <h3>Available Anytime</h3>
-                <p>Get guidance whenever you need it.</p>
+                <div className="dmt-benefit-icon">
+                  <Smartphone size={24} />
+                </div>
+                <h3>24/7 Availability</h3>
+                <p>Get reliable assistance anytime from your phone or laptop.</p>
               </div>
+
               <div className="dmt-benefit">
-                <Link2 className="dmt-icon" size={30} aria-hidden="true" />
-                <h3>Official Information</h3>
-                <p>Answers are grounded in official DMT information rather than random internet content.</p>
+                <div className="dmt-benefit-icon">
+                  <Link2 size={24} />
+                </div>
+                <h3>Grounded in Official Info</h3>
+                <p>Answers are continuously mapped against official DMT guidelines.</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* SERVICES */}
+        {/* SERVICES LIST */}
         <section id="services" className="dmt-section dmt-services">
           <div className="dmt-section-inner">
             <p className="dmt-eyebrow dmt-eyebrow-center">Services</p>
@@ -420,8 +499,8 @@ export default function DMTAssist({ onOpenChat }) {
                 { Icon: Calendar, label: "Appointments" },
                 { Icon: FolderOpen, label: "Other DMT Services" },
               ].map(({ Icon, label }) => (
-                <div className="dmt-service" key={label}>
-                  <Icon className="dmt-icon" size={22} aria-hidden="true" />
+                <div className="dmt-service" key={label} onClick={onOpenChat}>
+                  <Icon className="dmt-icon" size={20} />
                   <span>{label}</span>
                 </div>
               ))}
@@ -429,42 +508,38 @@ export default function DMTAssist({ onOpenChat }) {
           </div>
         </section>
 
-        {/* TRUST */}
+        {/* TRUST & DISCLAIMER */}
         <section id="trust" className="dmt-section dmt-trust">
           <div className="dmt-section-inner">
-            <p className="dmt-eyebrow dmt-eyebrow-center">Trust &amp; Safety</p>
-            <h2 className="dmt-section-title">Guidance You Can Trust</h2>
+            <p className="dmt-eyebrow dmt-eyebrow-center">Trust &amp; Transparency</p>
+            <h2 className="dmt-section-title">Guidance You Can Rely On</h2>
             <p className="dmt-section-sub">
-              The assistant is designed to provide guidance based on official
-              Department of Motor Traffic information.
+              Designed with accuracy in mind to ensure smooth government service interactions.
             </p>
 
             <div className="dmt-grid dmt-grid-4">
               <div className="dmt-trust-item">
-                <Landmark className="dmt-icon" size={20} aria-hidden="true" />
+                <Landmark size={18} />
                 <span>Official Sources</span>
               </div>
               <div className="dmt-trust-item">
-                <RefreshCw className="dmt-icon" size={20} aria-hidden="true" />
-                <span>Updated Information</span>
+                <RefreshCw size={18} />
+                <span>Updated Regulations</span>
               </div>
               <div className="dmt-trust-item">
-                <CheckCircle2 className="dmt-icon" size={20} aria-hidden="true" />
-                <span>Clear Steps</span>
+                <CheckCircle2 size={18} />
+                <span>Clear Instructions</span>
               </div>
               <div className="dmt-trust-item">
-                <Link2 className="dmt-icon" size={20} aria-hidden="true" />
-                <span>Transparent Links</span>
+                <Link2 size={18} />
+                <span>Verified Links</span>
               </div>
             </div>
 
             <div className="dmt-disclaimer">
-              <AlertTriangle className="dmt-icon" size={22} aria-hidden="true" />
+              <AlertTriangle size={20} className="dmt-disclaimer-icon" />
               <p>
-                <strong>Important:</strong> The assistant provides informational
-                guidance. Always verify important requirements, fees and
-                official instructions through the relevant Department of Motor
-                Traffic service before taking action.
+                <strong>Disclaimer:</strong> DMT Assist provides informational guidance based on public government guidelines. Always verify crucial requirements, official fee structures, and instructions at an official Department of Motor Traffic office before making payments or submissions.
               </p>
             </div>
           </div>
@@ -477,13 +552,12 @@ export default function DMTAssist({ onOpenChat }) {
           <div className="dmt-footer-col dmt-footer-brand">
             <a className="dmt-logo dmt-logo-footer" href="#top">
               <span className="dmt-logo-mark">
-                <TrafficCone size={22} strokeWidth={2} />
+                <TrafficCone size={20} />
               </span>
               <span className="dmt-logo-text">DMT Assist</span>
             </a>
             <p>
-              Making Department of Motor Traffic information easier to
-              understand and access.
+              Making Department of Motor Traffic information easier to understand and accessible for everyone in Sri Lanka.
             </p>
           </div>
 
@@ -503,25 +577,22 @@ export default function DMTAssist({ onOpenChat }) {
           </div>
 
           <div className="dmt-footer-col dmt-footer-important">
-            <h4>Important</h4>
+            <h4>Important Notice</h4>
             <p>
-              This assistant provides informational guidance. Verify important
-              requirements with official DMT sources.
+              This digital tool is an informational concept and does not issue legal documents or process direct government payments.
             </p>
           </div>
         </div>
 
         <div className="dmt-footer-official">
           <p>
-            <strong>Official Department of Motor Traffic</strong> — No. 341,
-            Alvitigala Mawatha, Narahenpita, Colombo 05, Sri Lanka.
+            <strong>Official Department of Motor Traffic Head Office:</strong> No. 341, Alvitigala Mawatha, Narahenpita, Colombo 05, Sri Lanka.
           </p>
         </div>
 
         <div className="dmt-footer-bottom">
           <p>
-            DMT Assist is an information &amp; guidance concept and is not
-            officially affiliated with the Department of Motor Traffic.
+            © {new Date().getFullYear()} DMT Assist Concept · Designed with precision for Sri Lankan citizens.
           </p>
         </div>
       </footer>

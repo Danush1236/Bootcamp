@@ -1,68 +1,91 @@
+/* ==========================================================================
+   DMT ASSIST - APPLE-INSPIRED LIGHT MODE DESIGN SYSTEM
+   ========================================================================== */
 
 .dmt {
-  --color-primary: #0b4f8a;
-  --color-primary-hover: #083b67;
-  --color-navy: #12304a;
-  --color-gold: #f4b942;
-  --color-success: #198754;
-  --color-warning: #f59e0b;
-  --color-error: #dc3545;
-  --color-bg: #f7f9fc;
-  --color-card: #ffffff;
-  --color-text: #17212b;
-  --color-text-secondary: #667085;
-  --color-border: #e4e7ec;
-  --color-chat-bg: #eef6ff;
+  /* Color Palette */
+  --color-primary: #0066cc;
+  --color-primary-hover: #0052a3;
+  --color-primary-light: #eef6ff;
+  
+  --color-text-main: #1d1d1f;
+  --color-text-secondary: #6e6e73;
+  --color-text-muted: #86868b;
 
-  --radius-sm: 12px;
+  --color-bg-base: #fafafa;
+  --color-bg-surface: #ffffff;
+  --color-bg-subtle: #f5f5f7;
+  
+  --color-border-light: rgba(0, 0, 0, 0.08);
+  --color-border-medium: rgba(0, 0, 0, 0.12);
+
+  --color-success: #34c759;
+  --color-success-bg: #f2faf4;
+  --color-warning: #ff9500;
+  --color-warning-bg: #fff8ef;
+  --color-error: #ff3b30;
+  --color-error-bg: #fff2f1;
+
+  /* Typography */
+  --font-system: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Elevation & Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.08);
+  --shadow-glow: 0 0 32px rgba(0, 102, 204, 0.15);
+
+  /* Radius */
+  --radius-sm: 10px;
   --radius-md: 16px;
-  --shadow-card: 0 4px 20px rgba(18, 48, 74, 0.08);
-  --shadow-lift: 0 12px 32px rgba(18, 48, 74, 0.14);
+  --radius-lg: 24px;
+  --radius-full: 9999px;
 
-  --font-ui: "Poppins", "Noto Sans Sinhala", "Noto Sans Tamil", -apple-system,
-    BlinkMacSystemFont, sans-serif;
+  /* Transition */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
-  font-family: var(--font-ui);
-  color: var(--color-text);
-  background: var(--color-bg);
+  font-family: var(--font-system);
+  color: var(--color-text-main);
+  background-color: var(--color-bg-base);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
+/* Global resets inside scope */
 .dmt * {
   box-sizing: border-box;
-}
-
-.dmt img,
-.dmt svg {
-  max-width: 100%;
-  display: block;
+  margin: 0;
+  padding: 0;
 }
 
 .dmt a {
   text-decoration: none;
-  color: #17212b;
+  color: inherit;
+  transition: color 0.2s var(--ease-out);
 }
 
-.dmt ol {
-  margin: 8px 0 0;
-  padding-left: 20px;
+.dmt button,
+.dmt input {
+  font-family: inherit;
 }
 
-.dmt-icon {
-  font-style: normal;
-  line-height: 1;
-}
-
+/* Accessibility */
 @media (prefers-reduced-motion: reduce) {
   .dmt * {
-    animation: none !important;
-    transition: none !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
+/* ==========================================================================
+   LAYOUT & CONTAINERS
+   ========================================================================== */
 
 .dmt-section {
-  padding: 72px 24px;
+  padding: 96px 24px;
 }
 
 .dmt-section-inner {
@@ -73,10 +96,10 @@
 .dmt-eyebrow {
   color: var(--color-primary);
   font-weight: 600;
-  font-size: 0.85rem;
-  letter-spacing: 0.06em;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin: 0 0 12px;
+  margin-bottom: 12px;
 }
 
 .dmt-eyebrow-center {
@@ -84,11 +107,12 @@
 }
 
 .dmt-section-title {
-  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
   font-weight: 700;
+  letter-spacing: -0.025em;
   text-align: center;
-  margin: 0 0 16px;
-  color: var(--color-navy);
+  color: var(--color-text-main);
+  margin-bottom: 16px;
 }
 
 .dmt-section-title-left {
@@ -97,11 +121,12 @@
 
 .dmt-section-sub {
   text-align: center;
-  max-width: 640px;
-  margin: 0 auto 48px;
+  max-width: 620px;
+  margin: 0 auto 56px;
   color: var(--color-text-secondary);
-  font-size: 1.02rem;
-  line-height: 1.7;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  font-weight: 400;
 }
 
 .dmt-grid {
@@ -117,74 +142,77 @@
   grid-template-columns: repeat(4, 1fr);
 }
 
-
+/* ==========================================================================
+   BUTTONS & UI CONTROLS
+   ========================================================================== */
 
 .dmt-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 14px 26px;
-  border-radius: var(--radius-sm);
+  padding: 14px 24px;
+  border-radius: var(--radius-full);
   font-weight: 600;
-  font-size: 0.98rem;
+  font-size: 0.95rem;
   border: 1px solid transparent;
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+  transition: all 0.25s var(--ease-out);
+  white-space: nowrap;
 }
 
 .dmt-btn:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
-.dmt-btn:focus-visible {
-  outline: 3px solid var(--color-gold);
-  outline-offset: 2px;
+.dmt-btn:active {
+  transform: translateY(0);
 }
 
 .dmt-btn-primary {
   background: var(--color-primary);
   color: #ffffff;
-}
-
-.dmt a.dmt-btn-primary {
-  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 102, 204, 0.25);
 }
 
 .dmt-btn-primary:hover {
   background: var(--color-primary-hover);
+  box-shadow: 0 6px 20px rgba(0, 102, 204, 0.35);
 }
 
 .dmt-btn-secondary {
-
-  color: var(--color-text);
-  border-color: var(--color-primary);
+  background: var(--color-bg-surface);
+  color: var(--color-text-main);
+  border: 1px solid var(--color-border-medium);
 }
 
-
-
-.dmt-btn-gold {
-  background: var(--color-gold);
-  color: var(--color-navy);
-}
-
-.dmt-btn-gold:hover {
-  background: #e0a930;
+.dmt-btn-secondary:hover {
+  background: var(--color-bg-subtle);
+  border-color: var(--color-text-main);
 }
 
 .dmt-btn-nav {
-  padding: 10px 20px;
-  font-size: 0.9rem;
+  padding: 9px 18px;
+  font-size: 0.88rem;
 }
 
+.dmt-btn-lg {
+  padding: 16px 36px;
+  font-size: 1.05rem;
+}
+
+/* ==========================================================================
+   NAVIGATION BAR (GLASSMORPHISM)
+   ========================================================================== */
 
 .dmt-nav {
   position: sticky;
   top: 0;
-  z-index: 50;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--color-border);
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .dmt-nav-inner {
@@ -201,36 +229,41 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  flex-shrink: 0;
 }
 
 .dmt-logo-mark {
-  font-size: 1.6rem;
-  line-height: 1;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .dmt-logo-text {
   display: flex;
   flex-direction: column;
   font-weight: 700;
-  font-size: 1.15rem;
-  color: var(--color-navy);
-  line-height: 1.2;
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+  color: var(--color-text-main);
 }
 
 .dmt-logo-sub {
-  font-weight: 400;
+  font-weight: 500;
   font-size: 0.68rem;
   color: var(--color-text-secondary);
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
 }
 
 .dmt-nav-links {
   display: flex;
-  gap: 28px;
+  gap: 32px;
   font-weight: 500;
-  font-size: 0.95rem;
-  color: var(--color-text);
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
 }
 
 .dmt-nav-links a:hover {
@@ -240,25 +273,29 @@
 .dmt-nav-actions {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 20px;
 }
 
 .dmt-lang {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.88rem;
-  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
 }
 
 .dmt-lang-btn {
   background: none;
   border: none;
-  font-family: inherit;
-  font-size: inherit;
   color: inherit;
   cursor: pointer;
   padding: 2px 4px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.dmt-lang-btn:hover {
+  color: var(--color-text-main);
 }
 
 .dmt-lang-active {
@@ -267,14 +304,18 @@
 }
 
 .dmt-lang-divider {
-  color: var(--color-border);
+  color: var(--color-border-medium);
+  font-size: 0.75rem;
 }
 
-
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
 
 .dmt-hero {
-  background: var(--color-navy);
-  padding: 64px 24px 80px;
+  padding: 80px 24px 100px;
+  background: radial-gradient(100% 100% at 50% 0%, #ffffff 0%, #f4f7fa 100%);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .dmt-hero-inner {
@@ -282,264 +323,318 @@
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
-  gap: 48px;
+  gap: 64px;
   align-items: center;
 }
 
-.dmt-hero-copy .dmt-eyebrow {
-  color: var(--color-gold);
+.dmt-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.dmt-badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-success);
 }
 
 .dmt-hero-copy h1 {
-  font-size: clamp(2rem, 4vw, 3rem);
-  line-height: 1.2;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 0 0 20px;
+  font-size: clamp(2.4rem, 4.5vw, 3.5rem);
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-text-main);
+  margin-bottom: 20px;
 }
 
 .dmt-hero-copy h1 span {
-  color: var(--color-gold);
+  color: var(--color-primary);
+  background: linear-gradient(135deg, #0066cc 0%, #004080 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .dmt-hero-sub {
-  color: #cbd8e6;
-  font-size: 1.08rem;
-  line-height: 1.7;
+  color: var(--color-text-secondary);
+  font-size: 1.15rem;
+  line-height: 1.6;
+  margin-bottom: 36px;
   max-width: 520px;
-  margin: 0 0 32px;
 }
 
 .dmt-hero-search {
-  background: #ffffff;
-  border-radius: var(--radius-md);
+  background: var(--color-bg-surface);
+  border-radius: var(--radius-lg);
   padding: 20px;
-  margin-bottom: 28px;
-  box-shadow: var(--shadow-lift);
-  max-width: 520px;
+  margin-bottom: 32px;
+  border: 1px solid var(--color-border-light);
+  box-shadow: var(--shadow-md);
 }
 
 .dmt-hero-search-label {
   display: block;
   font-weight: 600;
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   margin-bottom: 10px;
-  color: var(--color-text);
+  color: var(--color-text-main);
 }
 
 .dmt-hero-search-box {
   display: flex;
   align-items: center;
-  gap: 10px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
+  gap: 12px;
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-md);
   padding: 12px 16px;
-  background: var(--color-bg);
+  background: var(--color-bg-subtle);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.dmt-hero-search-box:focus-within {
+  border-color: var(--color-primary);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.12);
+}
+
+.dmt-search-icon {
+  color: var(--color-text-muted);
 }
 
 .dmt-hero-search-box input {
   border: none;
-  background: none;
+  background: transparent;
   outline: none;
   width: 100%;
-  font-family: inherit;
-  font-size: 0.98rem;
-  color: var(--color-text);
+  font-size: 0.95rem;
+  color: var(--color-text-main);
+  cursor: pointer;
+}
+
+.dmt-kbd {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-medium);
+  padding: 2px 6px;
+  border-radius: 4px;
 }
 
 .dmt-hero-examples {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 8px;
   margin-top: 14px;
 }
 
 .dmt-hero-examples span {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--color-text-secondary);
-  background: var(--color-chat-bg);
-  padding: 8px 12px;
-  border-radius: 20px;
-  width: fit-content;
+  background: var(--color-bg-subtle);
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border-light);
 }
 
 .dmt-hero-cta {
   display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
+  gap: 16px;
 }
 
+/* Hero Visual / Card Preview */
 .dmt-hero-visual {
-  position: relative;
   display: flex;
-  align-items: center;
   justify-content: center;
-  min-height: 340px;
 }
 
-.dmt-hero-photo {
+.dmt-hero-card-preview {
   width: 100%;
-  height: 320px;
-  background: linear-gradient(160deg, #1b466e 0%, #0b4f8a 100%);
-  border-radius: var(--radius-md);
+  background: var(--color-bg-surface);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  border: 1px solid var(--color-border-medium);
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.dmt-hero-photo-icon {
-  font-size: 5rem;
-  opacity: 0.9;
-}
-
-.dmt-hero-photo-icon-2 {
-  position: absolute;
-  bottom: 24px;
-  left: 32px;
-  font-size: 3rem;
-  opacity: 0.85;
-}
-
-.dmt-hero-chip {
-  position: absolute;
-  bottom: -28px;
-  right: -8px;
-  width: 240px;
-  background: #ffffff;
-  border-radius: var(--radius-md);
-  padding: 16px;
-  box-shadow: var(--shadow-lift);
 }
 
 .dmt-hero-chip-head {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   font-weight: 700;
   color: var(--color-primary);
-  font-size: 0.92rem;
-  margin-bottom: 10px;
+  font-size: 0.95rem;
+  margin-bottom: 16px;
 }
 
 .dmt-hero-chip-q {
-  font-size: 0.85rem;
-  color: var(--color-text-secondary);
-  margin: 0 0 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-main);
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .dmt-hero-chip-a {
-  font-size: 0.85rem;
-  background: var(--color-chat-bg);
-  padding: 8px 10px;
-  border-radius: var(--radius-sm);
-  color: var(--color-text);
-  margin: 0;
+  font-size: 0.9rem;
+  background: var(--color-primary-light);
+  padding: 16px;
+  border-radius: var(--radius-md);
+  color: var(--color-text-main);
 }
 
+.dmt-hero-chip-a strong {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--color-primary);
+}
+
+.dmt-hero-chip-a ul {
+  padding-left: 20px;
+  color: var(--color-text-secondary);
+}
+
+.dmt-hero-chip-a li {
+  margin-bottom: 4px;
+}
+
+/* ==========================================================================
+   PROBLEM SECTION & CARDS
+   ========================================================================== */
+
+.dmt-problem {
+  background: var(--color-bg-base);
+}
 
 .dmt-card {
-  background: var(--color-card);
-  border: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-md);
-  padding: 28px 22px;
-  box-shadow: var(--shadow-card);
+  padding: 32px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
 }
 
-.dmt-card-icon {
-  font-size: 1.8rem;
-  display: inline-block;
-  margin-bottom: 14px;
+.dmt-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.dmt-card-icon-wrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
 .dmt-card h3 {
-  font-size: 1.05rem;
-  margin: 0 0 8px;
-  color: var(--color-navy);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--color-text-main);
 }
 
 .dmt-card-q {
   font-weight: 600;
+  font-size: 0.9rem;
   color: var(--color-primary);
-  margin: 0 0 8px;
+  margin-bottom: 8px;
 }
 
 .dmt-card p:not(.dmt-card-q) {
   color: var(--color-text-secondary);
   font-size: 0.92rem;
-  line-height: 1.6;
-  margin: 0;
+  line-height: 1.5;
 }
 
-
+/* ==========================================================================
+   SCENARIO COMPARISON
+   ========================================================================== */
 
 .dmt-scenario {
-  background: #ffffff;
+  background: var(--color-bg-surface);
+  border-top: 1px solid var(--color-border-light);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .dmt-scenario-quote {
   text-align: center;
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  color: var(--color-navy);
-  max-width: 640px;
-  margin: 0 auto 40px;
+  color: var(--color-text-main);
+  max-width: 600px;
+  margin: 0 auto 48px;
+  font-style: italic;
 }
 
 .dmt-scenario-compare {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
-  gap: 24px;
+  gap: 32px;
   align-items: center;
 }
 
 .dmt-scenario-col {
-  border-radius: var(--radius-md);
-  padding: 26px 24px;
+  border-radius: var(--radius-lg);
+  padding: 36px 32px;
 }
 
 .dmt-scenario-before {
-  background: #fdf3f2;
-  border: 1px solid #f3d6d3;
+  background: var(--color-error-bg);
+  border: 1px solid rgba(255, 59, 48, 0.15);
 }
 
 .dmt-scenario-after {
-  background: #eef8f2;
-  border: 1px solid #cdeadb;
+  background: var(--color-success-bg);
+  border: 1px solid rgba(52, 199, 89, 0.2);
 }
 
 .dmt-scenario-col h3 {
-  margin: 0 0 16px;
-  font-size: 1rem;
-  color: var(--color-navy);
+  margin-bottom: 20px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-text-main);
 }
 
 .dmt-flow {
   list-style: none;
-  margin: 0;
-  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 14px;
 }
 
 .dmt-flow li {
   position: relative;
-  padding-left: 20px;
-  font-size: 0.92rem;
-  color: var(--color-text);
+  padding-left: 24px;
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
 }
 
 .dmt-flow li::before {
   content: "";
   position: absolute;
   left: 0;
-  top: 6px;
+  top: 7px;
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--color-border);
 }
 
 .dmt-scenario-before .dmt-flow li::before {
@@ -552,289 +647,368 @@
 
 .dmt-flow-end {
   font-weight: 700;
+  color: var(--color-text-main) !important;
 }
 
 .dmt-scenario-divider {
-  font-size: 1.5rem;
-  color: var(--color-border);
-  text-align: center;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-
+/* ==========================================================================
+   ASSISTANT PREVIEW (MOCK CHAT)
+   ========================================================================== */
 
 .dmt-assistant {
-  background: var(--color-bg);
+  background: var(--color-bg-base);
 }
 
 .dmt-assistant-inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 48px;
+  gap: 64px;
   align-items: center;
 }
 
 .dmt-assistant-copy p {
   color: var(--color-text-secondary);
-  line-height: 1.7;
-  font-size: 1rem;
+  line-height: 1.6;
+  font-size: 1.05rem;
+  margin-bottom: 24px;
 }
 
 .dmt-assistant-note {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
-  background: var(--color-chat-bg);
-  border-radius: var(--radius-sm);
-  padding: 12px 14px;
-  font-size: 0.88rem !important;
-  color: var(--color-text) !important;
+  gap: 12px;
+  background: var(--color-bg-surface);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  border: 1px solid var(--color-border-medium);
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+.dmt-note-icon {
+  color: var(--color-warning);
+  flex-shrink: 0;
+  margin-top: 2px;
 }
 
 .dmt-chat-mock {
-  background: #ffffff;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-card);
+  background: var(--color-bg-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-medium);
+  box-shadow: var(--shadow-lg);
   overflow: hidden;
 }
 
 .dmt-chat-head {
-  background: var(--color-primary);
-  color: #ffffff;
-  padding: 14px 18px;
+  background: var(--color-bg-subtle);
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.dmt-chat-head-user {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-weight: 600;
+  gap: 12px;
+}
+
+.dmt-chat-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dmt-chat-title {
+  display: flex;
+  flex-direction: column;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.dmt-chat-status {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-success);
 }
 
 .dmt-chat-body {
-  padding: 18px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  background: var(--color-chat-bg);
-  min-height: 220px;
+  gap: 16px;
+  background: #ffffff;
+  min-height: 260px;
 }
 
 .dmt-chat-bubble {
-  max-width: 88%;
-  padding: 10px 14px;
-  border-radius: 14px;
-  font-size: 0.9rem;
-  line-height: 1.55;
+  max-width: 85%;
+  padding: 12px 18px;
+  border-radius: 18px;
+  font-size: 0.92rem;
+  line-height: 1.5;
 }
 
 .dmt-chat-bot {
-  background: #ffffff;
-  border: 1px solid var(--color-border);
+  background: var(--color-bg-subtle);
+  color: var(--color-text-main);
   align-self: flex-start;
-  color: var(--color-text);
+  border-bottom-left-radius: 4px;
+}
+
+.dmt-chat-bot ol {
+  padding-left: 20px;
+  margin-top: 8px;
 }
 
 .dmt-chat-user {
   background: var(--color-primary);
   color: #ffffff;
   align-self: flex-end;
+  border-bottom-right-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .dmt-chat-link {
-  display: inline-block;
-  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
   color: var(--color-primary);
   font-weight: 600;
-  font-size: 0.85rem;
+  cursor: pointer;
+  font-size: 0.88rem;
 }
 
 .dmt-chat-input {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 18px;
-  border-top: 1px solid var(--color-border);
-  color: var(--color-text-secondary);
-  font-size: 0.88rem;
+  padding: 16px 20px;
+  border-top: 1px solid var(--color-border-light);
+  background: var(--color-bg-subtle);
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  cursor: pointer;
 }
 
+.dmt-send-icon {
+  color: var(--color-primary);
+}
+
+/* ==========================================================================
+   HOW IT WORKS (STEPS)
+   ========================================================================== */
 
 .dmt-how {
-  background: #ffffff;
+  background: var(--color-bg-surface);
 }
 
 .dmt-step {
   position: relative;
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
+  background: var(--color-bg-base);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-md);
-  padding: 30px 22px 24px;
+  padding: 32px 24px;
 }
 
 .dmt-step-num {
   position: absolute;
-  top: 18px;
+  top: 20px;
   right: 20px;
-  font-weight: 700;
-  font-size: 0.85rem;
-  color: var(--color-border);
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  opacity: 0.5;
 }
 
 .dmt-step-icon {
-  font-size: 1.7rem;
-  display: inline-block;
-  margin-bottom: 14px;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
 .dmt-step h3 {
-  margin: 0 0 8px;
-  color: var(--color-navy);
-  font-size: 1.05rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
 }
 
 .dmt-step p {
-  margin: 0;
   color: var(--color-text-secondary);
   font-size: 0.92rem;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 .dmt-step-example {
-  margin-top: 10px !important;
+  margin-top: 12px !important;
   font-style: italic;
+  font-weight: 500;
   color: var(--color-primary) !important;
 }
 
-
+/* ==========================================================================
+   POPULAR QUESTIONS CARD GRID
+   ========================================================================== */
 
 .dmt-questions {
-  background: var(--color-bg);
+  background: var(--color-bg-base);
 }
 
 .dmt-qcard {
-  background: #ffffff;
-  border: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-md);
-  padding: 26px 22px;
-  box-shadow: var(--shadow-card);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  padding: 28px 24px;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-out);
+  box-shadow: var(--shadow-sm);
 }
 
 .dmt-qcard:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-lift);
+  transform: translateY(-4px);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
 }
 
-.dmt-qcard .dmt-icon {
-  font-size: 1.7rem;
-  display: inline-block;
-  margin-bottom: 12px;
+.dmt-qcard-icon {
+  color: var(--color-primary);
+  margin-bottom: 16px;
 }
 
 .dmt-qcard h3 {
-  margin: 0 0 6px;
-  color: var(--color-navy);
-  font-size: 1rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--color-text-main);
 }
 
 .dmt-qcard p {
-  margin: 0;
   color: var(--color-text-secondary);
   font-size: 0.9rem;
+  line-height: 1.5;
 }
 
-
+/* ==========================================================================
+   BIG CTA SECTION
+   ========================================================================== */
 
 .dmt-cta-big {
-  background: var(--color-navy);
+  background: linear-gradient(135deg, #0052a3 0%, #003366 100%);
+  color: #ffffff;
   text-align: center;
+  border-radius: var(--radius-lg);
+  margin: 0 24px;
 }
 
 .dmt-cta-big-inner h2 {
-  color: #ffffff;
-  font-size: clamp(1.6rem, 3vw, 2.2rem);
-  margin: 0 0 10px;
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+  margin-bottom: 12px;
 }
 
 .dmt-cta-big-inner > p {
-  color: #cbd8e6;
-  margin: 0 0 32px;
-  font-size: 1.05rem;
-}
-
-.dmt-cta-search {
-  max-width: 480px;
-  margin: 0 auto 28px;
-  background: transparent;
-  box-shadow: none;
-  padding: 0;
-}
-
-.dmt-cta-search .dmt-hero-search-box {
-  background: #ffffff;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.15rem;
+  margin-bottom: 36px;
 }
 
 .dmt-cta-lang {
-  margin-top: 18px;
-  color: #a9bdd2;
-  font-size: 0.88rem;
+  margin-top: 20px;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
 }
 
-
+/* ==========================================================================
+   BENEFITS & SERVICES
+   ========================================================================== */
 
 .dmt-benefits {
-  background: #ffffff;
+  background: var(--color-bg-surface);
 }
 
 .dmt-benefit {
   text-align: center;
-  padding: 24px 18px;
+  padding: 24px;
 }
 
-.dmt-benefit .dmt-icon {
-  font-size: 2rem;
-  display: inline-block;
-  margin-bottom: 14px;
+.dmt-benefit-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 18px;
 }
 
 .dmt-benefit h3 {
-  margin: 0 0 8px;
-  color: var(--color-navy);
-  font-size: 1.02rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 8px;
 }
 
 .dmt-benefit p {
-  margin: 0;
   color: var(--color-text-secondary);
-  font-size: 0.9rem;
-  line-height: 1.6;
+  font-size: 0.92rem;
+  line-height: 1.5;
 }
 
-
-
 .dmt-services {
-  background: var(--color-bg);
+  background: var(--color-bg-base);
 }
 
 .dmt-service {
   display: flex;
   align-items: center;
-  gap: 12px;
-  background: #ffffff;
-  border: 1px solid var(--color-border);
+  gap: 14px;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-sm);
-  padding: 18px 16px;
+  padding: 20px 18px;
   font-weight: 600;
-  color: var(--color-navy);
-  font-size: 0.94rem;
+  color: var(--color-text-main);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-out);
+}
+
+.dmt-service:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
 .dmt-service .dmt-icon {
-  font-size: 1.4rem;
+  color: var(--color-primary);
 }
 
-
+/* ==========================================================================
+   TRUST & DISCLAIMER
+   ========================================================================== */
 
 .dmt-trust {
-  background: #ffffff;
+  background: var(--color-bg-surface);
 }
 
 .dmt-trust-item {
@@ -842,87 +1016,75 @@
   align-items: center;
   gap: 10px;
   justify-content: center;
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
+  background: var(--color-bg-subtle);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-sm);
-  padding: 18px 14px;
+  padding: 16px;
   font-weight: 600;
-  color: var(--color-navy);
-  font-size: 0.92rem;
-  text-align: center;
+  font-size: 0.9rem;
+  color: var(--color-text-main);
 }
 
 .dmt-disclaimer {
   display: flex;
-  gap: 12px;
+  gap: 16px;
   align-items: flex-start;
-  background: #fff8ec;
-  border: 1px solid #f3d99c;
+  background: var(--color-warning-bg);
+  border: 1px solid rgba(255, 149, 0, 0.25);
   border-radius: var(--radius-md);
-  padding: 20px;
-  margin-top: 36px;
+  padding: 24px;
+  margin-top: 48px;
 }
 
-.dmt-disclaimer .dmt-icon {
-  font-size: 1.3rem;
+.dmt-disclaimer-icon {
+  color: var(--color-warning);
+  flex-shrink: 0;
+  margin-top: 2px;
 }
 
 .dmt-disclaimer p {
-  margin: 0;
-  color: var(--color-text);
-  font-size: 0.92rem;
+  color: var(--color-text-main);
+  font-size: 0.9rem;
   line-height: 1.6;
 }
 
-
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
 
 .dmt-footer {
-  background: var(--color-navy);
-  color: #cbd8e6;
-  padding: 56px 24px 0;
+  background: var(--color-bg-subtle);
+  border-top: 1px solid var(--color-border-medium);
+  padding: 64px 24px 0;
+  color: var(--color-text-secondary);
 }
 
 .dmt-footer-inner {
   max-width: 1120px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr 1.4fr;
-  gap: 32px;
-  padding-bottom: 40px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+  gap: 40px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .dmt-footer-col h4 {
-  color: #ffffff;
+  color: var(--color-text-main);
   font-size: 0.95rem;
-  margin: 0 0 16px;
+  font-weight: 700;
+  margin-bottom: 16px;
 }
 
 .dmt-footer-col {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   font-size: 0.9rem;
-}
-
-.dmt-logo-footer {
-  margin-bottom: 12px;
-}
-
-.dmt-logo-footer .dmt-logo-text {
-  color: #ffffff;
 }
 
 .dmt-footer-brand p {
-  margin: 0;
-  color: #a9bdd2;
-  font-size: 0.9rem;
-  line-height: 1.6;
-}
-
-.dmt-footer-important p {
-  margin: 0;
-  color: #a9bdd2;
+  font-size: 0.88rem;
   line-height: 1.6;
 }
 
@@ -932,122 +1094,21 @@
   padding: 24px 0;
   text-align: center;
   font-size: 0.85rem;
-  color: #a9bdd2;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.dmt-footer-official strong {
-  color: #ffffff;
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .dmt-footer-bottom {
   max-width: 1120px;
   margin: 0 auto;
-  padding: 20px 0 28px;
+  padding: 24px 0 32px;
   text-align: center;
-  font-size: 0.78rem;
-  color: #8199b3;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
 }
 
-
-
-.dmt-icon {
-  flex-shrink: 0;
-  vertical-align: middle;
-}
-
-.dmt-logo-mark {
-  color: var(--color-primary);
-  display: inline-flex;
-}
-
-.dmt-logo-footer .dmt-logo-mark {
-  color: var(--color-gold);
-}
-
-.dmt-hero-search-box .dmt-icon {
-  color: var(--color-text-secondary);
-}
-
-.dmt-hero-chip-head .dmt-icon {
-  color: var(--color-primary);
-}
-
-.dmt-hero-photo-icon {
-  color: rgba(255, 255, 255, 0.92);
-}
-
-.dmt-hero-photo-icon-2 {
-  color: var(--color-gold);
-}
-
-.dmt-card-icon {
-  color: var(--color-primary);
-  margin-bottom: 14px;
-}
-
-.dmt-assistant-note .dmt-icon {
-  color: var(--color-primary);
-  margin-top: 2px;
-}
-
-.dmt-chat-head .dmt-icon {
-  color: #ffffff;
-}
-
-.dmt-chat-user .dmt-icon {
-  color: #ffffff;
-  margin-right: 2px;
-}
-
-.dmt-chat-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.dmt-chat-input .dmt-icon {
-  color: var(--color-primary);
-}
-
-.dmt-step-icon {
-  color: var(--color-primary);
-  margin-bottom: 14px;
-}
-
-.dmt-qcard .dmt-icon {
-  color: var(--color-primary);
-  margin-bottom: 12px;
-}
-
-.dmt-benefit .dmt-icon {
-  color: var(--color-primary);
-  margin-bottom: 14px;
-}
-
-.dmt-service .dmt-icon {
-  color: var(--color-primary);
-}
-
-.dmt-trust-item .dmt-icon {
-  color: var(--color-primary);
-}
-
-.dmt-disclaimer .dmt-icon {
-  color: var(--color-warning);
-  margin-top: 2px;
-}
-
-.dmt-btn-gold {
-  gap: 6px;
-}
-
-.dmt-btn .dmt-icon,
-.dmt-btn svg {
-  color: currentColor;
-}
-
-
+/* ==========================================================================
+   RESPONSIVE DESIGN (TABLETS & MOBILE)
+   ========================================================================== */
 
 @media (max-width: 1024px) {
   .dmt-nav-links {
@@ -1056,25 +1117,14 @@
 
   .dmt-hero-inner {
     grid-template-columns: 1fr;
-  }
-
-  .dmt-hero-visual {
-    order: -1;
-    min-height: 260px;
-  }
-
-  .dmt-hero-chip {
-    right: 16px;
+    gap: 48px;
   }
 
   .dmt-assistant-inner {
     grid-template-columns: 1fr;
   }
 
-  .dmt-grid-4 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
+  .dmt-grid-4,
   .dmt-grid-3 {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1092,36 +1142,17 @@
   }
 }
 
-
-
 @media (max-width: 640px) {
   .dmt-section {
-    padding: 52px 18px;
-  }
-
-  .dmt-nav-inner {
-    padding: 12px 16px;
-  }
-
-  .dmt-lang {
-    display: none;
-  }
-
-  .dmt-logo-sub {
-    display: none;
-  }
-
-  .dmt-btn-nav {
-    padding: 9px 14px;
-    font-size: 0.82rem;
+    padding: 64px 18px;
   }
 
   .dmt-hero {
-    padding: 44px 18px 64px;
+    padding: 48px 18px 64px;
   }
 
   .dmt-hero-copy h1 {
-    font-size: 1.85rem;
+    font-size: 2.1rem;
   }
 
   .dmt-hero-cta {
@@ -1132,16 +1163,6 @@
     width: 100%;
   }
 
-  .dmt-hero-chip {
-    position: static;
-    width: 100%;
-    margin-top: 16px;
-  }
-
-  .dmt-hero-photo {
-    height: 220px;
-  }
-
   .dmt-grid-4,
   .dmt-grid-3 {
     grid-template-columns: 1fr;
@@ -1149,5 +1170,10 @@
 
   .dmt-footer-inner {
     grid-template-columns: 1fr;
+  }
+
+  .dmt-cta-big {
+    margin: 0;
+    border-radius: 0;
   }
 }
